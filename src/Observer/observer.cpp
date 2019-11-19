@@ -55,9 +55,11 @@ void test_observer() {
     LeftObserver leftObserver(car);
 
     int value=0;
+    cout << int('q') << endl;
     while(value != int('q')){
         cout << "Enter a value (q to quit) : ";
         cin >> value;
+        cout << value << endl;
         cin.clear();
         //        cin.ignore(256, '\n');
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

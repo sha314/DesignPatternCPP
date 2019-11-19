@@ -8,6 +8,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 /**
  Only one instance of Logging class is allowed. No new instance can be created.
@@ -60,6 +61,7 @@ class Logging_v2{
     static Logging_v2* _instance;
     std::string _filename;
     std::ofstream _fout;
+    char _delimiter = '\t';
 
     Logging_v2(){
         _filename="a.txt";
@@ -75,12 +77,34 @@ public:
     }
 
     void setFilename(std::string filename){
-        _filename=filename;
+        _filename= std::move(filename);
         _fout.close();
         _fout.open(_filename);
     }
-    void addText(std::string text){
+    void setDelimiter(char delimiter){
+        _delimiter = delimiter;
+    }
+
+    void addText(const std::string &text){
         _fout << text << std::endl;
+    }
+
+    void addText(double value){
+        _fout << value << std::endl;
+    }
+
+    void addText(const std::vector<double>& values){
+        for(auto a: values){
+            _fout << a << _delimiter;
+        }
+        _fout << std::endl;
+    }
+
+    void addText(const std::vector<std::string>& values){
+        for(auto a: values){
+            _fout << a << _delimiter;
+        }
+        _fout << std::endl;
     }
 
 
